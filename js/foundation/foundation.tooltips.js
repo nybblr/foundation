@@ -131,6 +131,7 @@
       if (classes && classes.indexOf('tip-flip') > -1) {
         flip = true;
         edge += target.outerWidth();
+        edge = $(this.settings.appendTo).width() - edge;
       }
 
       console.log("Flip:");
