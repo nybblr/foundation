@@ -154,11 +154,11 @@
         console.log(left);
 
         return obj.css({
-          'top' : (top) ? top : 'auto',
-          'bottom' : (bottom) ? bottom : 'auto',
-          'left' : (left) ? left : 'auto',
-          'right' : (right) ? right : 'auto',
-          'width' : (width) ? width : 'auto'
+          'top' : (top || top == 0) ? top : 'auto',
+          'bottom' : (bottom || bottom == 0) ? bottom : 'auto',
+          'left' : (left || left == 0) ? left : 'auto',
+          'right' : (right || right == 0) ? right : 'auto',
+          'width' : (width || width == 0) ? width : 'auto'
         }).end();
       };
 
