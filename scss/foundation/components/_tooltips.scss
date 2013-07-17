@@ -93,9 +93,7 @@ $tooltip-pip-size: 5px !default;
         bottom: -($tooltip-pip-size * 2);
       }
       &.tip-flip>.nub {
-        border-color: $tooltip-bg transparent transparent transparent;
-        top: auto;
-        bottom: -($tooltip-pip-size * 2);
+        right: $tooltip-pip-size;
       }
 
       &.tip-left,
