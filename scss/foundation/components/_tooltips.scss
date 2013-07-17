@@ -93,7 +93,7 @@ $tooltip-pip-size: 5px !default;
         bottom: -($tooltip-pip-size * 2);
       }
       &.tip-flip>.nub {
-        left: auto
+        left: auto;
         right: $tooltip-pip-size;
       }
 
