@@ -126,7 +126,20 @@
       nubHeight = this.outerHeight(nub);
       nubWidth = this.outerHeight(nub);
 
+      var flip = false;
+      var edge = target.offset().left;
+      if (classes && classes.indexOf('tip-flip') > -1) {
+        flip = true;
+        edge = target.offset().right;
+      }
+
       objPos = function (obj, top, right, bottom, left, width) {
+        if (flip) {
+          var swap = left;
+          left = right;
+          right = swap;
+        }
+
         return obj.css({
           'top' : (top) ? top : 'auto',
           'bottom' : (bottom) ? bottom : 'auto',
@@ -136,27 +149,27 @@
         }).end();
       };
 
-      objPos(tip, (target.offset().top + this.outerHeight(target) + 10), 'auto', 'auto', target.offset().left, width);
+      objPos(tip, (target.offset().top + this.outerHeight(target) + 10), 'auto', 'auto', edge, width);
 
       if ($(window).width() < 767) {
         objPos(tip, (target.offset().top + this.outerHeight(target) + 10), 'auto', 'auto', 12.5, $(this.scope).width());
         tip.addClass('tip-override');
-        objPos(nub, -nubHeight, 'auto', 'auto', target.offset().left);
+        objPos(nub, -nubHeight, 'auto', 'auto', edge);
       } else {
-        var left = target.offset().left;
+        // var left = target.offset().left;
         if (Foundation.rtl) {
-          left = target.offset().left + target.offset().width - this.outerWidth(tip);
+          edge = edge + target.offset().width - this.outerWidth(tip);
         }
-        objPos(tip, (target.offset().top + this.outerHeight(target) + 10), 'auto', 'auto', left, width);
+        objPos(tip, (target.offset().top + this.outerHeight(target) + 10), 'auto', 'auto', edge, width);
         tip.removeClass('tip-override');
         if (classes && classes.indexOf('tip-top') > -1) {
-          objPos(tip, (target.offset().top - this.outerHeight(tip)), 'auto', 'auto', left, width)
+          objPos(tip, (target.offset().top - this.outerHeight(tip)), 'auto', 'auto', edge, width)
             .removeClass('tip-override');
         } else if (classes && classes.indexOf('tip-left') > -1) {
-          objPos(tip, (target.offset().top + (this.outerHeight(target) / 2) - nubHeight*2.5), 'auto', 'auto', (target.offset().left - this.outerWidth(tip) - nubHeight), width)
+          objPos(tip, (target.offset().top + (this.outerHeight(target) / 2) - nubHeight*2.5), 'auto', 'auto', (edge - this.outerWidth(tip) - nubHeight), width)
             .removeClass('tip-override');
         } else if (classes && classes.indexOf('tip-right') > -1) {
-          objPos(tip, (target.offset().top + (this.outerHeight(target) / 2) - nubHeight*2.5), 'auto', 'auto', (target.offset().left + this.outerWidth(target) + nubHeight), width)
+          objPos(tip, (target.offset().top + (this.outerHeight(target) / 2) - nubHeight*2.5), 'auto', 'auto', (edge + this.outerWidth(target) + nubHeight), width)
             .removeClass('tip-override');
         }
       }
@@ -165,7 +178,7 @@
     },
 
     inheritable_classes : function (target) {
-      var inheritables = ['tip-top', 'tip-top-left', 'tip-left', 'tip-bottom', 'tip-right', 'noradius'].concat(this.settings.additionalInheritableClasses),
+      var inheritables = ['tip-flip', 'tip-top', 'tip-left', 'tip-bottom', 'tip-right', 'noradius'].concat(this.settings.additionalInheritableClasses),
           classes = target.attr('class'),
           filtered = classes ? $.map(classes.split(' '), function (el, i) {
             if ($.inArray(el, inheritables) !== -1) {
