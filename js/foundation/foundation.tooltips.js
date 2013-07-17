@@ -130,7 +130,7 @@
       var edge = target.offset().left;
       if (classes && classes.indexOf('tip-flip') > -1) {
         flip = true;
-        edge = target.offset().right;
+        edge += target.width();
       }
 
       console.log("Flip:");
