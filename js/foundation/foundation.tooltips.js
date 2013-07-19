@@ -134,25 +134,12 @@
         edge = $(this.settings.appendTo).width() - edge;
       }
 
-      console.log("Flip:");
-      console.log(flip);
-      console.log(edge);
-
       objPos = function (obj, top, right, bottom, left, width) {
-        console.log("Position:");
-        console.log(top);
-        console.log(right);
-        console.log(bottom);
-        console.log(left);
         if (flip) {
           var swap = left;
           left = right;
           right = swap;
         }
-        console.log(top);
-        console.log(right);
-        console.log(bottom);
-        console.log(left);
 
         return obj.css({
           'top' : (top || top == 0) ? top : 'auto',
